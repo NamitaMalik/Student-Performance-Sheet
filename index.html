@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="eduStat">
 <head lang="en">
     <meta charset="UTF-8">
     <title>Student Performance Sheet</title>
@@ -11,7 +11,7 @@
         }
     </style>
 </head>
-<body>
+<body ng-controller="StudentController as studentController">
 <nav id="myNavbar" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -37,23 +37,35 @@
         <tr>
             <th>Roll No.</th>
             <th>Student Name</th>
-            <th>Marks</th>
+            <th>Score</th>
+        </tr>
+        <tr class="active" ng-repeat="student in studentController.students" ng-class="{'danger': student.score < 65}">
+            <td>{{student.roll_no}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.score}}</td>
+        </tr>
+        </thead>
+    </table>
+    <table class="table table-bordered">
+        <caption>Class Statistics</caption>
+        <thead>
+        <tr>
+            <th>Maximum Score</th>
+            <th>Minimum Score</th>
+            <th>Average Score</th>
         </tr>
         <tr class="active">
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{studentController.students|max}}</td>
+            <td>{{studentController.students|min}}</td>
+            <td>{{studentController.students|average}}</td>
         </tr>
-
         </thead>
-
     </table>
-
-
 </div>
 
 <script src="./node_modules/angular/angular.min.js"></script>
 <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="./StudentController.js"></script>
 </body>
 </html>
