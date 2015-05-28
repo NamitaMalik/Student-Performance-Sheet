@@ -9,8 +9,28 @@
             {roll_no: '1', name: 'Amit', score: 100},
             {roll_no: '2', name: 'Anoop', score: 60},
             {roll_no: '3', name: 'Bhanu', score: 95},
-            {roll_no: '4', name: 'Chandra', score: 82}
+            {roll_no: '4', name: 'Chandra', score: 82},
+            {roll_no: '5', name: 'Dharmesh', score: 65}
         ];
+        studentController.showStudentModal = function () {
+            ng.element('#studentModal').modal('show');
+        };
+        studentController.addStudent = function(){
+           var tempObject= {roll_no: studentController.rollNumbr, name: studentController.name, score: studentController.score};
+            studentController.students.push(tempObject);
+            studentController.rollNumbr = "";
+            studentController.name = "";
+            studentController.score = "";
+            ng.element('#studentModal').modal('hide');
+        };
+        studentController.deleteStudent = function(toBeDeletedStudent){
+           angular.forEach(studentController.students,function(value,index){
+              if(value.roll_no == toBeDeletedStudent.roll_no && value.name==toBeDeletedStudent.name){
+                  studentController.students.splice(index,1);
+              }
+           });
+
+        };
     }]);
     eduStat.filter('average', function () {
         return function (students) {
@@ -18,7 +38,7 @@
             ng.forEach(students, function (value) {
                 temp = temp + value.score;
             });
-            return temp / students.length;
+            return (temp / students.length).toFixed(2);
         }
     });
     eduStat.filter('max', function () {
@@ -29,7 +49,7 @@
                     max = value.score;
                 }
             });
-            return max;
+            return max.toFixed(2);
         }
     });
     eduStat.filter('min', function () {
@@ -43,7 +63,7 @@
                     min = value.score;
                 }
             });
-            return min;
+            return min.toFixed(2);
         }
     });
 })(angular);
