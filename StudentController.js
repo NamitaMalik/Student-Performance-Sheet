@@ -13,15 +13,32 @@
             {roll_no: '5', name: 'Dharmesh', score: 65}
         ];
         studentController.showStudentModal = function () {
+            studentController.rollNumbr = "";
+            studentController.name = "";
+            studentController.score = "";
+            studentController.mandatoryErrorMessage = "";
+            studentController.rollErrorMessage = "";
+            studentController.scoreErrorMessage = "";
             ng.element('#studentModal').modal('show');
         };
         studentController.addStudent = function(){
            var tempObject= {roll_no: studentController.rollNumbr, name: studentController.name, score: studentController.score};
-            studentController.students.push(tempObject);
-            studentController.rollNumbr = "";
-            studentController.name = "";
-            studentController.score = "";
-            ng.element('#studentModal').modal('hide');
+            if((studentController.rollNumbr && studentController.name && studentController.score)){
+                studentController.mandatoryErrorMessage = "";
+                if(isNaN(studentController.rollNumbr)){
+                    studentController.scoreErrorMessage = "";
+                    studentController.rollErrorMessage = "Roll Number can be numeric only."
+                } else if(isNaN(studentController.score)){
+                    studentController.rollErrorMessage = "";
+                    studentController.scoreErrorMessage = "Score can be numeric only."
+                } else{
+                    studentController.students.push(tempObject);
+                    ng.element('#studentModal').modal('hide');
+                }
+            }
+            else {
+                studentController.mandatoryErrorMessage = "All the fields are mandatory";
+            }
         };
         studentController.deleteStudent = function(toBeDeletedStudent){
            angular.forEach(studentController.students,function(value,index){
@@ -29,7 +46,6 @@
                   studentController.students.splice(index,1);
               }
            });
-
         };
     }]);
     eduStat.filter('average', function () {

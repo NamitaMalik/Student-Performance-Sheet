@@ -9,16 +9,23 @@
         body {
             padding-top: 70px;
         }
-        #addBtn{
+
+        #addBtn {
             position: relative;
             left: 50%;
-            margin-left: -62px;
+            margin-left: -62px;;
         }
-        #dltStu{
-            width:12px;
+
+        #dltStu {
+            width: 12px;
         }
-        a{
-            color:#333;
+
+        a {
+            color: #333;
+        }
+
+        .error {
+            color: red;
         }
     </style>
 </head>
@@ -55,7 +62,8 @@
             <td>{{student.roll_no}}</td>
             <td>{{student.name}}</td>
             <td>{{student.score}}</td>
-            <td id="dltStu"><a href="javascript:void(0)" ng-click="studentController.deleteStudent(student)"><span class="glyphicon glyphicon-trash"></span></a></td>
+            <td id="dltStu"><a href="javascript:void(0)" ng-click="studentController.deleteStudent(student)"><span
+                    class="glyphicon glyphicon-trash"></span></a></td>
         </tr>
         </thead>
     </table>
@@ -74,7 +82,9 @@
         </tr>
         </thead>
         <tfoot>
-        <button id="addBtn" type="button" class="btn btn-default" ng-click="studentController.showStudentModal()">Add Student</button>
+        <button id="addBtn" type="button" class="btn btn-default" ng-click="studentController.showStudentModal()">Add
+            Student
+        </button>
         </tfoot>
     </table>
 </div>
@@ -89,7 +99,8 @@
                 <form>
                     <div class="form-group">
                         <label for="modalRoll">Roll No.</label>
-                        <input type="number" id="modalRoll" class="form-control" placeholder="Roll Number" ng-model="studentController.rollNumbr">
+                        <input type="text" id="modalRoll" class="form-control" placeholder="Roll Number"
+                               ng-model="studentController.rollNumbr">
                     </div>
                     <div class="form-group">
                         <label for="modalStuName">Student Name</label>
@@ -98,14 +109,25 @@
                     </div>
                     <div class="form-group">
                         <label for="modalScore">Score</label>
-                        <input type="number" id="modalScore" class="form-control"
+                        <input type="text" id="modalScore" class="form-control"
                                placeholder="Test Score" ng-model="studentController.score">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" ng-click="studentController.addStudent()">Add Student</button>
-                    </div>
                 </form>
+                <div class="error">
+                    <span>{{studentController.mandatoryErrorMessage}}</span>
+                </div>
+                <div class="error">
+                    <span>{{studentController.rollErrorMessage}}</span>
+                </div>
+                <div class="error">
+                    <span>{{studentController.scoreErrorMessage}}</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" ng-click="studentController.addStudent()">Add
+                        Student
+                    </button>
+                </div>
             </div>
         </div>
     </div>
