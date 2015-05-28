@@ -38,7 +38,12 @@
             ng.forEach(students, function (value) {
                 temp = temp + value.score;
             });
-            return (temp / students.length).toFixed(2);
+            if(isNaN(temp / students.length)){
+                return 0.00.toFixed(2);
+            }
+            else {
+                return (temp / students.length).toFixed(2);
+            }
         }
     });
     eduStat.filter('max', function () {
