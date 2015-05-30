@@ -12,26 +12,32 @@
             {roll_no: '4', name: 'Chandra', score: 82},
             {roll_no: '5', name: 'Dharmesh', score: 65}
         ];
+        function clearErrorMessage() {
+            studentController.mandatoryErrorMessage = "";
+            studentController.rollErrorMessage = "";
+            studentController.scoreErrorMessage = "";
+        }
+
         studentController.showStudentModal = function () {
             studentController.rollNumbr = "";
             studentController.name = "";
             studentController.score = "";
-            studentController.mandatoryErrorMessage = "";
-            studentController.rollErrorMessage = "";
-            studentController.scoreErrorMessage = "";
+            clearErrorMessage();
             ng.element('#studentModal').modal('show');
         };
-        studentController.addStudent = function(){
-           var tempObject= {roll_no: studentController.rollNumbr, name: studentController.name, score: studentController.score};
-            if((studentController.rollNumbr && studentController.name && studentController.score)){
-                studentController.mandatoryErrorMessage = "";
-                if(isNaN(studentController.rollNumbr)){
-                    studentController.scoreErrorMessage = "";
-                    studentController.rollErrorMessage = "Roll Number can be numeric only."
-                } else if(isNaN(studentController.score)){
-                    studentController.rollErrorMessage = "";
-                    studentController.scoreErrorMessage = "Score can be numeric only."
-                } else{
+        studentController.addStudent = function () {
+            var tempObject = {
+                roll_no: studentController.rollNumbr,
+                name: studentController.name,
+                score: parseInt(studentController.score)
+            };
+            clearErrorMessage();
+            if ((studentController.rollNumbr && studentController.name && studentController.score)) {
+                if (isNaN(studentController.rollNumbr) || studentController.rollNumbr<1) {
+                    studentController.rollErrorMessage = "Please enter a valid roll number."
+                } else if (isNaN(studentController.score)||studentController.score<0) {
+                    studentController.scoreErrorMessage = "Please enter a valid score."
+                } else {
                     studentController.students.push(tempObject);
                     ng.element('#studentModal').modal('hide');
                 }
@@ -40,12 +46,12 @@
                 studentController.mandatoryErrorMessage = "All the fields are mandatory";
             }
         };
-        studentController.deleteStudent = function(toBeDeletedStudent){
-           angular.forEach(studentController.students,function(value,index){
-              if(value.roll_no == toBeDeletedStudent.roll_no && value.name==toBeDeletedStudent.name){
-                  studentController.students.splice(index,1);
-              }
-           });
+        studentController.deleteStudent = function (toBeDeletedStudent) {
+            angular.forEach(studentController.students, function (value, index) {
+                if (value.roll_no == toBeDeletedStudent.roll_no && value.name == toBeDeletedStudent.name) {
+                    studentController.students.splice(index, 1);
+                }
+            });
         };
     }]);
     eduStat.filter('average', function () {
@@ -54,11 +60,11 @@
             ng.forEach(students, function (value) {
                 temp = temp + value.score;
             });
-            if(isNaN(temp / students.length)){
-                return 0.00.toFixed(2);
+            if(students.length==0){
+                return 0;
             }
             else {
-                return (temp / students.length).toFixed(2);
+                return parseInt((temp / students.length));
             }
         }
     });
@@ -70,7 +76,7 @@
                     max = value.score;
                 }
             });
-            return max.toFixed(2);
+            return parseInt(max);
         }
     });
     eduStat.filter('min', function () {
@@ -84,7 +90,7 @@
                     min = value.score;
                 }
             });
-            return min.toFixed(2);
+            return parseInt(min);
         }
     });
 })(angular);
