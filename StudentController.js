@@ -3,15 +3,9 @@
  */
 (function (ng) {
     var eduStat = ng.module('eduStat', []);
-    eduStat.controller('StudentController', [function () {
+    eduStat.controller('StudentController', ['StudentService',function (StudentService) {
         var studentController = this;
-        studentController.students = [
-            {roll_no: '1', name: 'Amit Kumar', score: 100},
-            {roll_no: '2', name: 'Anoop Singh', score: 60},
-            {roll_no: '3', name: 'Bhanu Pratap', score: 95},
-            {roll_no: '4', name: 'Chandra Shekhar Awasthi', score: 82},
-            {roll_no: '5', name: 'Manoj Kumar Sharma', score: 65}
-        ];
+        studentController.students = StudentService.getStudentList();
         function clearErrorMessage() {
             studentController.mandatoryErrorMessage = "";
             studentController.rollErrorMessage = "";
@@ -38,6 +32,7 @@
                 } else if (isNaN(studentController.score)||studentController.score<0) {
                     studentController.scoreErrorMessage = "Please enter a valid score."
                 } else {
+                    StudentService.saveStudent(tempObject);
                     studentController.students.push(tempObject);
                     ng.element('#studentModal').modal('hide');
                 }
@@ -50,8 +45,12 @@
             angular.forEach(studentController.students, function (value, index) {
                 if (value.roll_no == toBeDeletedStudent.roll_no && value.name == toBeDeletedStudent.name) {
                     studentController.students.splice(index, 1);
+                    StudentService.deleteStudentList(index);
                 }
             });
+        };
+        studentController.updateStudent = function(index) {
+            StudentService.updateStudent(index, studentController.students[index]);
         };
     }]);
     eduStat.filter('average', function () {

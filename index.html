@@ -60,9 +60,9 @@
             <th></th>
         </tr>
         <tr class="active" ng-repeat="student in studentController.students" ng-class="{'danger': student.score < 65}">
-            <td class="col-md-2 min-height" editable="student.roll_no"></td>
-            <td class="col-md-5 min-height" editable="student.name"></td>
-            <td class="col-md-4 min-height" editable="student.score"></td>
+            <td class="col-md-2 min-height" editable="student.roll_no" index="{{$index}}" update-student="studentController.updateStudent(index)"></td>
+            <td class="col-md-5 min-height" editable="student.name" index="{{$index}}" update-student="studentController.updateStudent(index)"></td>
+            <td class="col-md-4 min-height" editable="student.score" index="{{$index}}" update-student="studentController.updateStudent(index)"></td>
             <td class="col-md-1 min-height"><a href="javascript:void(0)" ng-click="studentController.deleteStudent(student)"><span
                     class="glyphicon glyphicon-trash"></span></a></td>
         </tr>
@@ -138,5 +138,6 @@
 <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="./StudentController.js"></script>
 <script src="./editableDirective.js"></script>
+<script src="./student.service.js"></script>
 </body>
 </html>

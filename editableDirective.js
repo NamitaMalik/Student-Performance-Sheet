@@ -1,14 +1,16 @@
 /**
- * Created by namita on 30/5/15.
+ * Created by Namita Malik on 30/5/15.
  */
 
 (function (ng) {
     var eduStat = ng.module('eduStat');
 
-    eduStat.directive("editable", function () {
+    eduStat.directive("editable", [function () {
         return {
             scope: {
-                value: "=editable"
+                value: "=editable",
+                index: "@",
+                updateStudent: "&"
             },
             restrict: "A",
             templateUrl: "./editableTemplate.html",
@@ -19,7 +21,7 @@
                         scope.edit = stat;
                     });
                     if (!stat && scope.value !== oldValue) {
-                        console.log("Send Request if you want to update on server.");
+                        scope.updateStudent({index: scope.index});
                     }
                 };
                 var inputElement = element.find("input")[0];
@@ -37,6 +39,6 @@
                 });
             }
         };
-    });
+    }]);
 
 })(angular);
