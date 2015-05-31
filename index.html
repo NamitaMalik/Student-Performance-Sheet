@@ -16,10 +16,6 @@
             margin-left: -62px;;
         }
 
-        #dltStu {
-            width: 12px;
-        }
-
         a {
             color: #333;
         }
@@ -27,6 +23,11 @@
         .error {
             color: red;
         }
+
+        .min-height{
+            height: 43px;
+        }
+        
     </style>
 </head>
 <body ng-controller="StudentController as studentController">
@@ -53,16 +54,16 @@
         <caption>Student Details</caption>
         <thead>
         <tr>
-            <th>Roll No.</th>
-            <th>Student Name</th>
-            <th>Score</th>
+            <th class="min-width min-height">Roll No.</th>
+            <th class="min-width min-height">Student Name</th>
+            <th class="min-width min-height">Test Score (Out of 100)</th>
             <th></th>
         </tr>
         <tr class="active" ng-repeat="student in studentController.students" ng-class="{'danger': student.score < 65}">
-            <td>{{student.roll_no}}</td>
-            <td>{{student.name}}</td>
-            <td>{{student.score}}</td>
-            <td id="dltStu"><a href="javascript:void(0)" ng-click="studentController.deleteStudent(student)"><span
+            <td class="col-md-2 min-height" editable="student.roll_no"></td>
+            <td class="col-md-5 min-height" editable="student.name"></td>
+            <td class="col-md-4 min-height" editable="student.score"></td>
+            <td class="col-md-1 min-height"><a href="javascript:void(0)" ng-click="studentController.deleteStudent(student)"><span
                     class="glyphicon glyphicon-trash"></span></a></td>
         </tr>
         </thead>
@@ -136,5 +137,6 @@
 <script src="./node_modules/angular/angular.min.js"></script>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="./StudentController.js"></script>
+<script src="./editableDirective.js"></script>
 </body>
 </html>

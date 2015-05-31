@@ -6,11 +6,11 @@
     eduStat.controller('StudentController', [function () {
         var studentController = this;
         studentController.students = [
-            {roll_no: '1', name: 'Amit', score: 100},
-            {roll_no: '2', name: 'Anoop', score: 60},
-            {roll_no: '3', name: 'Bhanu', score: 95},
-            {roll_no: '4', name: 'Chandra', score: 82},
-            {roll_no: '5', name: 'Dharmesh', score: 65}
+            {roll_no: '1', name: 'Amit Kumar', score: 100},
+            {roll_no: '2', name: 'Anoop Singh', score: 60},
+            {roll_no: '3', name: 'Bhanu Pratap', score: 95},
+            {roll_no: '4', name: 'Chandra Shekhar Awasthi', score: 82},
+            {roll_no: '5', name: 'Manoj Kumar Sharma', score: 65}
         ];
         function clearErrorMessage() {
             studentController.mandatoryErrorMessage = "";
