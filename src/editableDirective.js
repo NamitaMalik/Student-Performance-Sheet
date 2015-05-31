@@ -13,7 +13,7 @@
                 updateStudent: "&"
             },
             restrict: "A",
-            templateUrl: "./editableTemplate.html",
+            templateUrl: "./partials/editableTemplate.html",
             link: function (scope, element) {
                 var oldValue = scope.value;
                 var changeEditStat = function (stat) {
